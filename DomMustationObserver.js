@@ -102,63 +102,65 @@
          */
         var defaultCallback = function (records) {
             if (records && Array.isArray(records)) {
-                var triggeredEvents = [];
+                var triggeredEvents = {};
 
                 records.forEach(function (record) {
                     if (
                         record &&
-                        record.type &&
-                        triggeredEvents.indexOf(record.type) === -1
+                        record.type
                     ) {
-                        switch (record.type) {
-                            case 'attributes':
-                                if (handlers[YDomMutationObserver.EVENTS.ON_ATTRIBUTES_CHANGED]) {
-                                    self.trigger('on-attributes-changed', record);
-                                }
+                        triggeredEvents[record.type] = triggeredEvents[record.type] || [];
+                        triggeredEvents[record.type].push(record);
+                    }
+                });
 
-                                break;
+                Object.keys(triggeredEvents).forEach(function (record) {
+                    switch (record) {
+                        case 'attributes':
+                            if (handlers[YDomMutationObserver.EVENTS.ON_ATTRIBUTES_CHANGED]) {
+                                self.trigger('on-attributes-changed', triggeredEvents[record]);
+                            }
 
-                            case 'characterData':
-                                if (handlers[YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_CHANGED]) {
-                                    self.trigger('on-character-data-changed', record);
-                                }
+                            break;
 
-                                break;
+                        case 'characterData':
+                            if (handlers[YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_CHANGED]) {
+                                self.trigger('on-character-data-changed', triggeredEvents[record]);
+                            }
 
-                            case 'childList':
-                                if (handlers[YDomMutationObserver.EVENTS.ON_CHILD_LIST_CHANGED]) {
-                                    self.trigger('on-child-list-changed', record);
-                                }
+                            break;
 
-                                break;
+                        case 'childList':
+                            if (handlers[YDomMutationObserver.EVENTS.ON_CHILD_LIST_CHANGED]) {
+                                self.trigger('on-child-list-changed', triggeredEvents[record]);
+                            }
 
-                            case 'subtree':
-                                if (handlers[YDomMutationObserver.EVENTS.ON_SUBTREE_CHANGED]) {
-                                    self.trigger('on-subtree-changed', record);
-                                }
+                            break;
 
-                                break;
+                        case 'subtree':
+                            if (handlers[YDomMutationObserver.EVENTS.ON_SUBTREE_CHANGED]) {
+                                self.trigger('on-subtree-changed', triggeredEvents[record]);
+                            }
 
-                            case 'attributeOldValue':
-                                if (handlers[YDomMutationObserver.EVENTS.ON_ATTRIBUTE_OLD_VALUE]) {
-                                    self.trigger('on-attribute-old-value', record);
-                                }
+                            break;
 
-                                break;
+                        case 'attributeOldValue':
+                            if (handlers[YDomMutationObserver.EVENTS.ON_ATTRIBUTE_OLD_VALUE]) {
+                                self.trigger('on-attribute-old-value', triggeredEvents[record]);
+                            }
 
-                            case 'characterDataOldValue':
-                                if (handlers[YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_OLD_VALUE]) {
-                                    self.trigger('on-character-data-old-value', record);
-                                }
+                            break;
 
-                                break;
-                        }
+                        case 'characterDataOldValue':
+                            if (handlers[YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_OLD_VALUE]) {
+                                self.trigger('on-character-data-old-value', triggeredEvents[record]);
+                            }
 
-                        triggeredEvents.push(record.type);
+                            break;
                     }
                 });
             } else {
-                self.trigger('on-change', {});
+                self.trigger('on-change', []);
             }
         };
 
@@ -260,7 +262,7 @@
 
             // push an empty array if the first params not MutationRecord
             if (
-                !params[0] instanceof MutationRecord
+                !Array.isArray(params[0]) || (Array.isArray(params[0]) && !params[0][0] instanceof MutationRecord)
             ) {
                 params.unshift([]);
             }
@@ -268,10 +270,13 @@
             /**
              * trigger the events with new params
              *
-             * @param {Function[]} handler
+             * @param {function} handler
              */
             handlers[type].forEach(function (handler) {
                 setTimeout(function () {
+                    /**
+                     * @type function
+                     */
                     handler.apply(null, params);
                 }, 1);
             });
@@ -293,12 +298,22 @@
             var params = Array.from(arguments);
             params.splice(0, 1);
 
+            // push an empty array if the first params not MutationRecord
+            if (
+                !Array.isArray(params[0]) || (Array.isArray(params[0]) && !params[0][0] instanceof MutationRecord)
+            ) {
+                params.unshift([]);
+            }
+
             /**
              * trigger the events with new params
              *
-             * @param {Function[]} handler
+             * @param {function} handler
              */
             handlers[type].forEach(function (handler) {
+                /**
+                 * @type function
+                 */
                 handler.apply(null, params);
             });
         };
