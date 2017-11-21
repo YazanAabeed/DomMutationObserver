@@ -1,5 +1,5 @@
 # DomMutationObserver
-This component needs to handle DOM changes and listen to DOM changes without killing browser performance if this not supported we fall back to simple setInterval action
+Simple wrapper for MutationObserver. MutationObserver needs to handle DOM changes and listen to DOM changes without killing browser performance if this not supported we fall back to simple setInterval action
 
 
 ### Supported MutationObserver attributes and every event for these attributes:
