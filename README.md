@@ -6,13 +6,25 @@ This component needs to handle DOM changes and listen to DOM changes without kil
 * **childList**: Set this to true if the element list changed and triggered with appended element.
 * **subtree**: Set this to true to listen to every children inside this element.
 * **attributes**: Set this to true if you need to listen to attributes changes.
+* **attributeOldValue**: Get and store value for changed attributes
+* **characterDataOldValue**: Get and store value for changed char data
 
 
 ### How to use
 You can include it on your project and every time you need to define a new instance from it.
+You can pass your own options and events on init function
 
 ```js
 var domEventChangesListener = new YDomMutationObserver();
+
+var domEventOptions = {
+      attributes: false,
+      characterData: true,
+      childList: true,
+      subtree: true,
+      attributeOldValue: false,
+      characterDataOldValue: false
+};
 
 domEventChangesListener.init(element[0] || jQuery, domEventOptions);
 domEventChangesListener.on(YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_CHANGED, domChanged);
@@ -25,6 +37,19 @@ After that you start listen or observe the changes on your dom.
 domEventChangesListener.startListening(500);
 ```
 
+To trigger any function manually use the trigger as async call or syncTrigger as sync call function
+No need to send the record every time if you don't have it you can leave it.
+
+```js
+self.trigger('on-attributes-changed', record);
+```
+
+Or
+
+```js
+self.syncTrigger('on-attributes-changed', record);
+
+```
 
 ### Events
 You can use the 'on' function that pass the event name with callback to trigger when DOM changed or you triggered by you self.
