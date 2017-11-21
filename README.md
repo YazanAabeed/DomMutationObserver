@@ -66,4 +66,4 @@ Trigger the on-change event that triggered by default when the browser not suppo
 
 
 ### Compatibility
-I have tested this on work for [HARRI](https://harri.com/) project for auto complete fields that shows a pop list with names to tag them.
+I have tested this on work for projects for auto complete fields that shows a pop list with names to tag them.
