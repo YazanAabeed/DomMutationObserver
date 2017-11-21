@@ -11,7 +11,7 @@ This component needs to handle DOM changes and listen to DOM changes without kil
 ### How to use
 You can include it on your project and every time you need to define a new instance from it.
 
-```sh
+```js
 var domEventChangesListener = new YDomMutationObserver();
 
 domEventChangesListener.init(element[0] || jQuery, domEventOptions);
@@ -21,7 +21,7 @@ domEventChangesListener.on(YDomMutationObserver.EVENTS.ON_CHANGE, harriCallbacks
 ```
 
 After that you start listen or observe the changes on your dom.
-```sh
+```js
 domEventChangesListener.startListening(500);
 ```
 
