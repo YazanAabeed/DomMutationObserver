@@ -1,6 +1,6 @@
 {
   "name": "@yazanaabed/dommutationobserver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This component needs to handle DOM changes and listen to DOM changes without killing browser performance if this not supported we fall back to simple setInterval action",
   "main": "DomMustationObserver.js",
   "scripts": {

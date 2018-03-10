@@ -140,42 +140,42 @@
                 Object.keys(triggeredEvents).forEach(function (record) {
                     switch (record) {
                         case 'attributes':
-                            if (handlers[YDomMutationObserver.EVENTS.ON_ATTRIBUTES_CHANGED]) {
+                            if (handlers[DomMutationObserver.EVENTS.ON_ATTRIBUTES_CHANGED]) {
                                 self.trigger('on-attributes-changed', triggeredEvents[record]);
                             }
 
                             break;
 
                         case 'characterData':
-                            if (handlers[YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_CHANGED]) {
+                            if (handlers[DomMutationObserver.EVENTS.ON_CHARACTER_DATA_CHANGED]) {
                                 self.trigger('on-character-data-changed', triggeredEvents[record]);
                             }
 
                             break;
 
                         case 'childList':
-                            if (handlers[YDomMutationObserver.EVENTS.ON_CHILD_LIST_CHANGED]) {
+                            if (handlers[DomMutationObserver.EVENTS.ON_CHILD_LIST_CHANGED]) {
                                 self.trigger('on-child-list-changed', triggeredEvents[record]);
                             }
 
                             break;
 
                         case 'subtree':
-                            if (handlers[YDomMutationObserver.EVENTS.ON_SUBTREE_CHANGED]) {
+                            if (handlers[DomMutationObserver.EVENTS.ON_SUBTREE_CHANGED]) {
                                 self.trigger('on-subtree-changed', triggeredEvents[record]);
                             }
 
                             break;
 
                         case 'attributeOldValue':
-                            if (handlers[YDomMutationObserver.EVENTS.ON_ATTRIBUTE_OLD_VALUE]) {
+                            if (handlers[DomMutationObserver.EVENTS.ON_ATTRIBUTE_OLD_VALUE]) {
                                 self.trigger('on-attribute-old-value', triggeredEvents[record]);
                             }
 
                             break;
 
                         case 'characterDataOldValue':
-                            if (handlers[YDomMutationObserver.EVENTS.ON_CHARACTER_DATA_OLD_VALUE]) {
+                            if (handlers[DomMutationObserver.EVENTS.ON_CHARACTER_DATA_OLD_VALUE]) {
                                 self.trigger('on-character-data-old-value', triggeredEvents[record]);
                             }
 
