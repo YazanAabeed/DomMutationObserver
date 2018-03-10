@@ -1,4 +1,27 @@
-(function () {
+(function (root, YDomMutationObserver) {
+    if (typeof define === 'function' && define.amd) {
+        /**
+         * AMD. Register as an anonymous module unless amdModuleId is set
+         */
+        define(["jquery"], function (a0) {
+            return (YDomMutationObserver(a0));
+        });
+    } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+        /**
+         * Pass this to node modules when this is the server
+         *
+         * @type {DomMutationObserver}
+         */
+        module.exports = YDomMutationObserver(require("jquery"));
+    } else {
+        /**
+         * Pass this if window is defined
+         *
+         * @type {DomMutationObserver}
+         */
+        window.YDomMutationObserver = YDomMutationObserver(window.jQuery);
+    }
+}(this, function (jQuery) {
     "use strict";
 
     /**
@@ -391,21 +414,5 @@
      * Pass this object to node server if defined or pass to window to use it on client side
      * @type {DomMutationObserver}
      */
-    var YDomMutationObserver = DomMutationObserver;
-
-    if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-        /**
-         * Pass this to node modules when this is the server
-         *
-         * @type {DomMutationObserver}
-         */
-        module.exports = YDomMutationObserver;
-    } else {
-        /**
-         * Pass this if window is defined
-         *
-         * @type {DomMutationObserver}
-         */
-        window.YDomMutationObserver = YDomMutationObserver;
-    }
-})();
+    return DomMutationObserver;
+}));

@@ -10,10 +10,16 @@
     "type": "git",
     "url": "git+https://github.com/YazanAabeed/DomMutationObserver.git"
   },
+  "peerDependencies": {
+    "jquery": ">=1.7.0 <4.0.0"
+  },
   "author": "YazanAabeed",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/YazanAabeed/DomMutationObserver/issues"
   },
-  "homepage": "https://github.com/YazanAabeed/DomMutationObserver#readme"
+  "homepage": "https://github.com/YazanAabeed/DomMutationObserver#readme",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
 }
